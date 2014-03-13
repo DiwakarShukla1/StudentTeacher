@@ -1,0 +1,58 @@
+<div>
+    Welcome To my WebSite!!!!!!!!!
+    <br/>Welcome Teacher!!!!!!!!!!!
+    <br/>
+    <br/>
+    <button class="btn btn-default" ng-click="createNewSet()">Create New Set</button>
+    <div ng-hide="flag">
+        <div class="form-group">
+            <label>Set Name:</label>
+            <input type="text" ng-model="setName" class="form-control" required="true">
+        </div>
+        <button class="btn btn-default" ng-click="saveSetName()">Save</button>
+    </div>
+    <ul data-ng-repeat="(key,set) in sets">
+        <h1>{{set}}</h1>
+        <ul data-ng-repeat="ques in questions[key]">
+            <li>
+                Question : {{ques.ques}}, Option 1 : {{ques.opt1}}, Option 2 : {{ques.opt2}}, Option 3 : {{ques.opt3}}, Option 4 : {{ques.opt4}}, Correct : {{ques.correct}}, Time : {{ques.time}} Seconds
+            </li>
+        </ul>
+        <div ng-show="arr[key]">
+            <div class="form-group">
+                <label>Question :</label>
+                <input type="text" ng-model="quesSet.ques" class="form-control" required="true">
+            </div>
+            <div class="form-group">
+                <label>Option 1:</label>
+                <input type="text" ng-model="quesSet.opt1" class="form-control" required="true">
+            </div>
+            <div class="form-group">
+                <label>Option 2:</label>
+                <input type="text" ng-model="quesSet.opt2" class="form-control" required="true">
+            </div>
+            <div class="form-group">
+                <label>Option 3:</label>
+                <input type="text" ng-model="quesSet.opt3" class="form-control" required="true">
+            </div>
+            <div class="form-group">
+                <label>Option 4:</label>
+                <input type="text" ng-model="quesSet.opt4" class="form-control" required="true">
+            </div>
+            <div class="form-group">
+                <label>Correct Answer:</label>
+                <input type="text" ng-model="quesSet.correct" class="form-control" required="true">
+            </div>
+            <div class="form-group">
+                <label>Time (in Seconds):</label>
+                <input type="text" ng-model="quesSet.time" class="form-control" required="true">
+            </div>
+            <button class="btn btn-default" ng-click="saveQuestions(key)">Save</button>
+        </div>
+        <button class="btn btn-default" ng-click="addQuestion(key)">Add Question </button>
+        <button class="btn btn-default" ng-click="publishQuestion(key)">Publish Set </button>
+    </ul>
+    <br/><br/><br/>
+    <br/><br/><br/>
+    <button class="btn btn-default" ng-click="logout()">Logout </button>
+</div>

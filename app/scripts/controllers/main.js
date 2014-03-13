@@ -1,19 +1,23 @@
 'use strict';
 
 angular.module('angularApp')
-  .controller('MainCtrl',['$scope', 'FarmerData', function ($scope, FarmerData) {
-        $scope.farmers = [];
+  .controller('MainCtrl',['$scope','$http','$location','UserRole', function ($scope,$http,$location,UserRole) {
+       $scope.user={'userName':'teacher','Password':'teacher'};
 
-        $scope.searchfarmer = function(){
-            console.log("called farmer");
-
-
+        init();
+        function init()
+        {
         }
 
-        $scope.init = function(){
-            $scope.farmers = FarmerData.query();
-            console.log($scope.farmers);
-        };
+        $scope.login=function(){
+            $http.post('/Login',$scope.user)
+                .success(function(data,status,headers,config){
+                    UserRole.setRole(data);
+                   $location.path("/"+data);
 
-        $scope.init();
+                }).error(function(data,status,headers,config){
+                    console.log(status);
+                });
+
+        }
   }]);

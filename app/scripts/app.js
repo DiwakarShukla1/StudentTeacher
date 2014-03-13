@@ -4,41 +4,49 @@ angular.module('angularApp', [
   'ngResource',
   'ui.bootstrap',
   'ngRoute'
-])
-  .config(['$routeProvider',function ($routeProvider) {
+]).factory('socket', function ($rootScope) {
+//        var io=new
+    var socket = io.connect("http://192.168.0.104:9001");
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            })
+        }
+    };
+}).config(['$routeProvider',function ($routeProvider) {
     $routeProvider
-       .when('/', {
-            templateUrl: 'views/land.html',
-            controller: 'UserCtrl'
+       .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'MainCtrl'
        })
-      .when('/farmer', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/phones/:phoneId', {
-        templateUrl: 'views/phonedetail.html',
-        controller: 'PhonedetailCtrl'
-      })
-      .when('/addfarmer', {
-        templateUrl: 'views/farmer.html',
-        controller: 'AddfarmerCtrl'
-      })
-      .when('/editfarmer/:id', {
-        templateUrl: 'views/farmer.html',
-        controller: 'EditfarmerCtrl'
-      })
-      .when('/addcrop/:id', {
-        templateUrl: 'views/crop.html',
-        controller: 'AddcropCtrl'
-      })
-      .when('/editcrop/:id/:crop', {
-            templateUrl: 'views/crop.html',
-            controller: 'EditCropCtrl'
-      })
-      .when('/advice/:id', {
-        templateUrl: 'views/advice.html',
-        controller: 'AdviceCtrl'
-      })
+        .when('/',{
+            templateUrl: 'views/main.html'
+        })
+        .when('/teacher',{
+            templateUrl: 'views/teacher.html',
+            controller:'TeacherCtrl'
+        })
+        .when('/student',{
+            templateUrl: 'views/student.html',
+            controller:'StudentCtrl'
+        })
+        .when('/invalid',{
+            templateUrl: 'views/invalid.html'
+        })
       .otherwise({
         redirectTo: '/'
       });

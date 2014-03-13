@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('angularApp')
-  .factory('Assistant', function FarmerData($resource) {
-        return $resource('assistants/:assistantId', {
+  .factory('Users', function Users($resource) {
+        return $resource('User/:userId', {
             farmerId: '@_id'
         }, {
             update: {

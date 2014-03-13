@@ -1,20 +1,22 @@
 var async = require('async');
 
 module.exports = function(app) {
-    //Client Routes
-    var farmers = require('../api/farmer');
-    var others=require('../api/others');
-    app.get('/farmers', farmers.all);
-    app.post('/farmers', farmers.create);
-    app.get('/farmers/:farmerId', farmers.show);
-    app.put('/farmers/:farmerId', farmers.update);
-    app.post('/upload/:name', farmers.upload);
-    app.get('/assistants',others.allAssistants);
-    app.get('/assistants/:assId',others.searchById);
-    app.get('/products',others.allProducts);
-    app.get('/worktypes',others.allWorkType);
-//    app.del('/clients/:clientId', clients.destroy);
+    var Users=require('../api/user');
+    var question=require('../api/question');
+    app.post('/Login',Users.Login);
+    app.get('/Logout',Users.Logout);
 
-    //Finish with setting up the clientId param
-    app.param('farmerId', farmers.client);
+
+//    app.io.route('Hello',function(req){
+//        console.log("Login Hello...");
+//        req.io.broadcast('talk', "Bye Bye");
+//    });
+
+//    app.io.route("first",function(req){
+//        console.log("User Pagal Aayya");
+//        req.io.emit("Yes","You Got me Now");
+//    });
+
+    app.io.route("publish",question.publish);
+
 };
