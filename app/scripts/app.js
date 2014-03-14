@@ -5,8 +5,7 @@ angular.module('angularApp', [
   'ui.bootstrap',
   'ngRoute'
 ]).factory('socket', function ($rootScope) {
-//        var io=new
-    var socket = io.connect("http://192.168.0.104:9001");
+    var socket = io.connect("http://192.168.0.102:9001");
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {

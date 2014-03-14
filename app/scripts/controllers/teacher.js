@@ -33,7 +33,7 @@ angular.module('angularApp')
         $scope.publishQuestion=function(key)
         {
             console.log($scope.questions[key]);
-            socket.emit("publish",$scope.questions[key]);
+            socket.emit("publishToAll",$scope.questions[key]);
         }
 
 

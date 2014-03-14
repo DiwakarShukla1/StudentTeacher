@@ -6,17 +6,10 @@ module.exports = function(app) {
     app.post('/Login',Users.Login);
     app.get('/Logout',Users.Logout);
 
-
-//    app.io.route('Hello',function(req){
-//        console.log("Login Hello...");
-//        req.io.broadcast('talk', "Bye Bye");
-//    });
-
-//    app.io.route("first",function(req){
-//        console.log("User Pagal Aayya");
-//        req.io.emit("Yes","You Got me Now");
-//    });
-
-    app.io.route("publish",question.publish);
+    app.io.route("publishToAll",question.publish);
+    app.io.route("publishToOne",question.publishOne);
+    app.io.route("takeQuestion",function(req){
+       req.io.route("publishToOne");
+    });
 
 };

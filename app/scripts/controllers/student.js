@@ -23,10 +23,12 @@ angular.module('angularApp')
                 $location.path("/invalid");
                 $location.replace();
             }
+            socket.emit("takeQuestion","Please Give Me");
 //            socket.emit("first","Hello");
         }
 
         socket.on("published",function(msg){
+            console.log("ja Re Ja.....");
             $scope.quesSet=msg;
             $scope.key=0;
         });
