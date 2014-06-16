@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('angularApp')
-    .controller('StudentCtrl',['$scope','$http','$location','UserRole','socket',function ($scope,$http,$location,UserRole,socket) {
+    .controller('StudentCtrl',['$scope','$http','$location','UserRole','socket','$cookieStore',function ($scope,$http,$location,UserRole,socket,$cookieStore) {
         $scope.msg="";
         $scope.quesSet=[];
         $scope.result={correct:0,incorrect:0};
@@ -18,9 +18,12 @@ angular.module('angularApp')
         init();
         function init()
         {
-            if(!(UserRole.Role=="student"))
-            {
-                $location.path("/invalid");
+           console.log("User Name "+ JSON.stringify($cookieStore.get('userInfo')));
+            if(typeof $cookieStore.get("userInfo") !=="undefined" && $cookieStore.get("userInfo").role==="student"){
+                $scope.userName=$cookieStore.get("userInfo").userName;
+            }else{
+                console.log("Dkk......");
+                $location.path("/login");
                 $location.replace();
             }
             socket.emit("takeQuestion","Please Give Me");
@@ -38,8 +41,7 @@ angular.module('angularApp')
             $http.get('/Logout')
                 .success(function(data,status,headers,config){
                     console.log("logout");
-                    console.log(UserRole.Role);
-                    UserRole.setRole("");
+                    $cookieStore.remove("userInfo");
                     $location.path("/login");
                     $location.replace();
 

@@ -18,11 +18,12 @@ angular.module('angularApp')
         function init()
         {
             console.log("User Name "+ JSON.stringify($cookieStore.get('userInfo')));
-            if(!(UserRole.Role==="teacher")){
-                $location.path("/invalid");
-                $location.replace();
-            }else{
+            if(typeof $cookieStore.get("userInfo") !=="undefined" && $cookieStore.get("userInfo").role==="teacher"){
                 $scope.userName=$cookieStore.get("userInfo").userName;
+            }else{
+                console.log("Dkk......");
+                $location.path("/login");
+                $location.replace();
             }
         }
 

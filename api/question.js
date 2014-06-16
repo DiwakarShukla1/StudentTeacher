@@ -4,7 +4,7 @@
 var fs=require('fs');
 
 exports.publish=function(req,res){
-    console.log(req.data);
+    console.log("publish ed......"+req.session.user);
     console.log(req.sessionID);
     fs.writeFile("./data/Questions.txt",JSON.stringify(req.data),function(err){
        if(err){
