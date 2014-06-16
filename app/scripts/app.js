@@ -3,9 +3,10 @@
 angular.module('angularApp', [
   'ngResource',
   'ui.bootstrap',
-  'ngRoute'
+  'ngRoute',
+  'ngCookies'
 ]).factory('socket', function ($rootScope) {
-    var socket = io.connect("http://192.168.0.102:9001");
+    var socket = io.connect("http://192.168.0.100:9001");
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
@@ -33,7 +34,7 @@ angular.module('angularApp', [
             controller: 'MainCtrl'
        })
         .when('/',{
-            templateUrl: 'views/main.html'
+            redirectTo: '/login'
         })
         .when('/teacher',{
             templateUrl: 'views/teacher.html',
@@ -47,6 +48,6 @@ angular.module('angularApp', [
             templateUrl: 'views/invalid.html'
         })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
       });
   }]);

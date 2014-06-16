@@ -46,7 +46,6 @@ angular.module('angularApp')
                 }).error(function(data,status,headers,config){
                     console.log(status);
                 });
-
         }
 
         $scope.startQuiz=function(){

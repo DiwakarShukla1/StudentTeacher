@@ -4,7 +4,8 @@
 'use strict';
 
 angular.module('angularApp')
-    .controller('TeacherCtrl',['$scope','$http','$location', 'UserRole','socket',function ($scope,$http,$location,UserRole,socket) {
+    .controller('TeacherCtrl',['$scope','$http','$location', 'UserRole','socket','$window','$cookieStore',function ($scope,$http,$location,UserRole,socket,$window,$cookieStore) {
+        $scope.userName="";
         $scope.question="";
         $scope.questions=[[{ques:'What is Your Name ?',opt1:'Sachin',opt2:'Dravid',opt3:'Sahrukh',opt4:'Mahesh',correct:'Mahesh',time:"20"},{ques:'2+2 ?',opt1:'4',opt2:'8',opt3:'5',opt4:'6',correct:'4',time:"9"}],[{ques:'2*2 ?',opt1:'4',opt2:'8',opt3:'5',opt4:'6',correct:'4',time:"15"}]];
         $scope.sets=["Math",'Science'];
@@ -16,10 +17,12 @@ angular.module('angularApp')
         init();
         function init()
         {
-            if(!(UserRole.Role=="teacher"))
-            {
+            console.log("User Name "+ JSON.stringify($cookieStore.get('userInfo')));
+            if(!(UserRole.Role==="teacher")){
                 $location.path("/invalid");
                 $location.replace();
+            }else{
+                $scope.userName=$cookieStore.get("userInfo").userName;
             }
         }
 
@@ -44,6 +47,7 @@ angular.module('angularApp')
                     console.log("logout");
                     console.log(UserRole.Role);
                     UserRole.setRole("");
+                    $cookieStore.remove("userInfo");
                     $location.path("/login");
                     $location.replace();
 

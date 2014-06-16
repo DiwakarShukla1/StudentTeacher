@@ -13,6 +13,7 @@ exports.publish=function(req,res){
            console.log("Saved.....");
        }
     });
+    console.log(req.session.user);
     req.io.broadcast("published",req.data);
 }
 

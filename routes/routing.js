@@ -9,7 +9,7 @@ module.exports = function(app) {
     app.io.route("publishToAll",question.publish);
     app.io.route("publishToOne",question.publishOne);
     app.io.route("takeQuestion",function(req){
-       req.io.route("publishToOne");
+    	console.log("Hello");
+       //req.io.route("publishToOne");
     });
-
 };

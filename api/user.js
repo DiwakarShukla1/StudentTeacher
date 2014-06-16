@@ -14,18 +14,22 @@ exports.Login=function(req,res){
     console.log("Aaaya...........");
     console.log(req.body);
     var val={'value':''};
-    if(username=='teacher' && password=='teacher')
+    if(username===password)
     {
-        req.session.user="teacher111";
+        req.session.user=username;
+        console.log(req.session.user);
         res.end(val.value='teacher');
     }
-    else if(username=="student" && password=="student")
+    /*else if(username=="student" && password=="student")
     {
         req.session.user="student111";
         res.end(val.value="student");
+    }*/
+    else{
+        var err=new Error("Invalid UserName or Password");
+        res.statusCode=401;
+        res.end();
     }
-    else
-        res.end(val.value="invalid");
 
 //    req.io.route("Hello");
 }
